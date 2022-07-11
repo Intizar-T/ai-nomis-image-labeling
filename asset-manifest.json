@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/ai-nomis-image-labeling/static/css/main.cedd60b1.css",
+    "main.js": "/ai-nomis-image-labeling/static/js/main.cff1f9b5.js",
+    "static/media/2560x1440-little-green-leaves-free-website-background-image.jpeg": "/ai-nomis-image-labeling/static/media/2560x1440-little-green-leaves-free-website-background-image.55b7e04a183ef94dad9b.jpeg",
+    "index.html": "/ai-nomis-image-labeling/index.html",
+    "main.cedd60b1.css.map": "/ai-nomis-image-labeling/static/css/main.cedd60b1.css.map",
+    "main.cff1f9b5.js.map": "/ai-nomis-image-labeling/static/js/main.cff1f9b5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cedd60b1.css",
+    "static/js/main.cff1f9b5.js"
+  ]
+}
