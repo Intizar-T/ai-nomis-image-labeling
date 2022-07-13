@@ -1,33 +1,33 @@
 import React, { useMemo, useEffect, useContext, useState } from "react";
 import Popup from "./Popup";
 import { Context } from "./context/context";
-import Utils from "./Utils";
 import Labels from "./Labels";
 import "../styles/app/app.css";
 import { Stage, Layer } from 'react-konva';
 import Rectangle from "./Rectangle"
 import RenderImage from "./RenderImage";
 import ProcessImages from "./ProcessImages";
+import DownloadImage from "./Download/DownloadImage";
+import DownloadText from "./Download/DownloadText";
 
 export default function App() {
 	const { state, dispatch } = useContext(Context);
 	const [currentBox, setCurrentBox] = useState([]);
-	//const [rectangles, setRectangles] = React.useState(state.initialRectangles);
   	const [selectedId, selectShape] = React.useState(null);
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	const utils = useMemo(() => new Utils(state, dispatch), [state]);
-	
 	const checkDeselect = (e) => {
 		// deselect when clicked on empty area
 		const clickedOnEmpty = e.target === e.target.getStage();
 		if (clickedOnEmpty) {
 		  selectShape(null);
 		}
-	  };
-/* 	if(state.files.length > 0){
-		const currImgId = state.currentFileIndex;
-		const currRectId = state.rectangles[state.currentFileIndex].id;
-	}  */ 	
+	};
+
+	const stageRef = React.useRef(null);
+  	const handleExport = () => {
+		const uri = stageRef.current.toDataURL();
+		DownloadImage(state, uri);
+  	};
 	
 	return (
 		<div className="app__container">
@@ -56,11 +56,10 @@ export default function App() {
 						height={window.innerHeight - 250}
 						onMouseDown={checkDeselect}
 						onTouchStart={checkDeselect}
+						ref={stageRef}
 					>
-						<Layer>
+						<Layer id="layer">
 							<RenderImage state={state}/>
-							{/* {rectangles.map((rect, i) => {
-								return ( */}
 								<Rectangle
 									key={state.rectangles[state.currentFileIndex].id}
 									shapeProps={state.rectangles[state.currentFileIndex]}
@@ -75,8 +74,6 @@ export default function App() {
 										dispatch({ type: "UPDATE_RECTS", rects });
 									}}
 								/>
-								{/* );
-							})} */}
 						</Layer>
 					</Stage>
 				)}
@@ -102,10 +99,10 @@ export default function App() {
 				<div className="footer">
 					{state.files.length > 0 ? (
 						<div className="download__btns">
-							<button className="download" onClick={(e) => utils.download(e)}>
+							<button className="download" onClick={(e) => handleExport()}>
 								Download
 							</button>
-							<button className="download txt" onClick={(e) => utils.downloadTextFile()}>
+							<button className="download txt" onClick={(e) => DownloadText(state)}>
 								Download .txt
 							</button>
 						</div>
@@ -156,9 +153,9 @@ export default function App() {
 						{/* Undo button */}
 						<button
 							className="undo"
-							onClick={() => {
+							/* onClick={() => {
 								utils.undo(true);
-							}}
+							}} */
 						>
 							Undo
 						</button>
