@@ -1,0 +1,9 @@
+IMMEDIATE:
+ - Integrate my code with Diyor's
+ - Make the generated box resizable -> DONE!
+ - Implement disallowing generating more than one rectangle per canvas -> DONE!
+ - 
+ 
+ MODERATE:
+ - Box is not selected from the first click (two clicks is necessary)
+ - 
