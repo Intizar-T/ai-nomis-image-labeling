@@ -1,12 +1,8 @@
 import React, { useState, useContext } from "react";
-import { Context } from "./context/context";
-import Utils from "./Utils";
 import "../styles/popup/popup.css";
 
 export default function Popup(props) {
-	const { state, dispatch } = useContext(Context);
 	const [label, setLabel] = useState(0);
-	const utils = new Utils(state, dispatch);
 
 	return (
 		<div
@@ -21,12 +17,12 @@ export default function Popup(props) {
 			<select
 				name="label_select"
 				id="label_select"
-				value={state.colors[label]}
+				value={props.state.colors[label]}
 				onChange={(e) => {
-					setLabel(state.colors.indexOf(e.target.value));
+					setLabel(props.state.colors.indexOf(e.target.value));
 				}}
 			>
-				{state.colors.map((color, i) => {
+				{props.state.colors.map((color, i) => {
 					return (
 						<option key={color} value={color}>
 							Class {i}
@@ -38,10 +34,7 @@ export default function Popup(props) {
 				<button
 					className="cancel__btn"
 					onClick={() => {
-						// props.addToObjects(false, props.top, props.left, props.startX, props.startY, null);
-						dispatch({ type: "SET_POPUP", popup: false });
-						dispatch({ type: "SET_TMP_BOX", tmpBox: null });
-						utils.undo();
+						props.dispatch({ type: "SET_POPUP", popup: false });
 					}}
 				>
 					Cancel
@@ -50,14 +43,11 @@ export default function Popup(props) {
 					className="Ok__btn"
 					onClick={() => {
 						if (label >= 0) {
-							dispatch({
-								type: "ADD_BOX",
-								index: state.currentFileIndex,
-								box: { ...props.currentBox, color: state.colors[label], label: label },
-							});
-							dispatch({ type: "SET_POPUP", popup: false });
-							dispatch({ type: "SET_TMP_BOX", tmpBox: null });
-							utils.reRender();
+							props.dispatch({ type: "SET_POPUP", popup: false });
+							const rects = props.state.rectangles;
+							rects[props.state.currentFileIndex].label = label;
+							props.dispatch({ type: "SET_BOX_LABEL", rects: rects });
+							console.log(props.state.rectangles[props.state.currentFileIndex].label);
 						} else {
 							alert("Please select class and click OK");
 						}

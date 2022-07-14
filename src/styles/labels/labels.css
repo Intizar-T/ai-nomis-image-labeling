@@ -3,8 +3,8 @@
   height: 160px;
   background-color: #fff;
   color: #333;
-  position: absolute;
-  top: 30%;
+  position: relative;
+  margin: 0 auto;
   -webkit-box-shadow: 0 0 10px 0 lightgray;
           box-shadow: 0 0 10px 0 lightgray;
   text-align: center;

@@ -46,8 +46,10 @@ const ProcessImages = (state, dispatch, files) => {
         dispatch({ type: "SET_LABELPROMPT", label: true });
         dispatch({ type: "SET_FILES", files: data });
         dispatch({ type: "SET_CURRENT_FILE_INDEX", index: 0 });
+        //console.log("labelPrompt after changing: " + state.labelPrompt);
+        //console.log("popup after changing: " + state.popup);
     });
-    //console.log(this.state.files.length);
+    
 }
 
 export default ProcessImages;

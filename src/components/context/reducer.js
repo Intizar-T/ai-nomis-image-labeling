@@ -150,7 +150,13 @@ const Reducer = (state, action) => {
 	//console.log("-----from Reducer---------")
 	//console.log(state);
 	switch (action.type) {
+		case "SET_BOX_LABEL":
+			return {
+				...state,
+				rectangles: action.rects,
+			}
 		case "SET_LABELPROMPT":
+			//console.log("action.label = " + action.label);
 			return {
 				...state,
 				labelPrompt: action.label,
@@ -177,7 +183,8 @@ const Reducer = (state, action) => {
 					y: 10, 
 					width: 100,
 					height: 100, 
-					id: i,
+					id: i.toString(),
+					label: "not labeled",
 					stroke: 'black',
 					strokeWidth: 4,
 				})
@@ -198,6 +205,7 @@ const Reducer = (state, action) => {
 				mouseY: action.mouseY,
 			};
 		case "SET_POPUP":
+			//console.log("action.popup = " + action.popup);
 			return {
 				...state,
 				popup: action.popup,

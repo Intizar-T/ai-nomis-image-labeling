@@ -51,7 +51,7 @@ body {
 }
 
 .app__container main {
-  height: calc(100% - 60px);
+  height: calc(100% - 125px);
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;

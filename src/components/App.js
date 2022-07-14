@@ -4,11 +4,13 @@ import { Context } from "./context/context";
 import Labels from "./Labels";
 import "../styles/app/app.css";
 import { Stage, Layer } from 'react-konva';
+import { Html } from 'react-konva-utils'
 import Rectangle from "./Rectangle"
 import RenderImage from "./RenderImage";
 import ProcessImages from "./ProcessImages";
 import DownloadImage from "./Download/DownloadImage";
 import DownloadText from "./Download/DownloadText";
+import "../styles/labels/labels.css";
 
 export default function App() {
 	const { state, dispatch } = useContext(Context);
@@ -31,12 +33,12 @@ export default function App() {
 	
 	return (
 		<div className="app__container">
-			<div className="header">
+			<header className="header">
 				<p className="welcome__message"><h2>
 					Welcome to the Object Detection platform!
 				</h2></p>
 				
-			</div>
+			</header>
 			<main id="main">
 				{/* Guide message: */}
 				{state.files.length === 0 ? (
@@ -57,6 +59,9 @@ export default function App() {
 						onMouseDown={checkDeselect}
 						onTouchStart={checkDeselect}
 						ref={stageRef}
+						style={{
+							margin: 10,
+						}}
 					>
 						<Layer id="layer">
 							<RenderImage state={state}/>
@@ -74,29 +79,42 @@ export default function App() {
 										dispatch({ type: "UPDATE_RECTS", rects });
 									}}
 								/>
+								{state.labelPrompt && 
+								<Html
+									divProps={{
+										style: {
+											width: "100%", /* Can be in percentage also. */
+											height: "100%",
+										}
+									}}	
+								>
+									<Labels dispatch={dispatch}/>
+								</Html>
+								}
+
+								{state.popup && 
+								<Html
+									divProps={{
+										style: {
+											width: "100%", /* Can be in percentage also. */
+											height: "100%",
+										}
+									}}	
+								>
+									<Popup
+										state={state} 
+										dispatch={dispatch}
+									/>
+								</Html>
+								}
+							
 						</Layer>
 					</Stage>
 				)}
-
-				{/* Various pop ups */}
-				<div className="input__container" id="input">
-					<input
-						id="fileInput"
-						type="file"
-						style={{ display: "none" }}
-						className="input__upload__pic"
-						accept=".zip,.rar,.7zip"
-						onChange={(e) => {
-							ProcessImages(state, dispatch, e.target.files);
-						}}
-					/>
-					<canvas id="canvas"></canvas>
-					{state.labelPrompt && <Labels />}
-					{state.popup && <Popup currentBox={currentBox} />}
-				</div>
-
-				{/* Footer buttons (Upload, +, -, Prev, Next, Undo) */}
-				<div className="footer">
+			</main>
+	
+			{/* Footer buttons (Upload, +, -, Prev, Next, Undo) */}
+			<footer className="footer">
 					{state.files.length > 0 ? (
 						<div className="download__btns">
 							<button className="download" onClick={(e) => handleExport()}>
@@ -107,11 +125,19 @@ export default function App() {
 							</button>
 						</div>
 					) : (
-						<label className="upload" htmlFor="fileInput">
-							<p className="upload__button" onClick={() => {}}>
-								Upload Image
-							</p>
-						</label>
+						<form>
+							<label className="upload" htmlFor="fileInput">Upload Images</label>
+							<input
+								id="fileInput"
+								type="file"
+								style={{ display: "none" }}
+								className="upload__button"
+								accept=".zip,.rar,.7zip"
+								onChange={(e) => {
+									ProcessImages(state, dispatch, e.target.files);
+								}}
+							/>
+						</form>
 					)}
 					<div className="zooms">
 						{/* Zoom in button (hasn't been implemented yet) */}
@@ -144,7 +170,10 @@ export default function App() {
 
 						{/* Next image button */}
 						<button
-							onClick={() => {dispatch({ type: "NEXT_FILE" });}}
+							onClick={() => {
+								dispatch({ type: "NEXT_FILE" });
+								dispatch({ type: "SET_POPUP", popup: true })
+							}}
 							className="next__image"
 						>
 							Next
@@ -160,8 +189,7 @@ export default function App() {
 							Undo
 						</button>
 					</div>
-				</div>
-			</main>
+				</footer>
 		</div>
 	);
 }

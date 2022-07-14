@@ -1,9 +1,7 @@
-import React, { useState, useContext } from "react";
-import { Context } from "./context/context";
+import React, { useState } from "react";
 import "../styles/labels/labels.css";
 
 export default function Labels(props) {
-	const { dispatch } = useContext(Context);
 	const [value, setValue] = useState(0);
 
 	return (
@@ -22,8 +20,9 @@ export default function Labels(props) {
 			<button
 				onClick={() => {
 					if (value > 0 && value < 143) {
-						dispatch({ type: "INIT_LABELS", length: value });
-						dispatch({ type: "SET_LABELPROMPT", label: false });
+						props.dispatch({ type: "INIT_LABELS", length: value });
+						props.dispatch({ type: "SET_LABELPROMPT", label: false });
+						props.dispatch({ type: "SET_POPUP", popup: true });
 					} else if (value <= 0) {
 						setValue(0);
 						alert("PLease enter valid number");

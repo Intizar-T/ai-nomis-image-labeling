@@ -6,7 +6,7 @@ const DownloadText = (state) => {
         y: currRect.y,
         width: currRect.width,
         height: currRect.height,
-        label: currRect.id
+        label: currRect.label
     }
     const element = document.createElement("a");
     const file = new Blob([JSON.stringify(coord)], { type: "application/json" });
