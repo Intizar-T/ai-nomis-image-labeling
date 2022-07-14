@@ -30,6 +30,16 @@ export default function App() {
 		const uri = stageRef.current.toDataURL();
 		DownloadImage(state, uri);
   	};
+
+	useEffect(() => {
+		if(state.files.length > 0 && !state.labelPrompt) {
+			//console.log(state.currentFileIndex);
+			if(state.rectangles[state.currentFileIndex].label === "not labeled"){
+				dispatch({ type: "SET_POPUP", popup: true });
+			}
+		}
+	}, [state]);
+	
 	
 	return (
 		<div className="app__container">
@@ -117,10 +127,32 @@ export default function App() {
 			<footer className="footer">
 					{state.files.length > 0 ? (
 						<div className="download__btns">
-							<button className="download" onClick={(e) => handleExport()}>
+							<button 
+								className="download" 
+								onClick={(e) => {
+									if(state.popup || state.labelPrompt){
+										state.popup ? 
+										alert("Please, choose a label!") :
+										alert("Please, provide the number of classes");
+									}
+									else {
+										handleExport();
+									}
+								}}>
 								Download
 							</button>
-							<button className="download txt" onClick={(e) => DownloadText(state)}>
+							<button 
+								className="download txt" 
+								onClick={(e) => {
+									if(state.popup || state.labelPrompt){
+										state.popup ? 
+										alert("Please, choose a label!") :
+										alert("Please, provide the number of classes");
+									}
+									else {
+										DownloadText(state);
+									}
+								}}>
 								Download .txt
 							</button>
 						</div>
@@ -143,7 +175,15 @@ export default function App() {
 						{/* Zoom in button (hasn't been implemented yet) */}
 						<button
 							onClick={() => {
-								// zoomInOut(true);
+								if(state.popup || state.labelPrompt){
+									state.popup ? 
+									alert("Please, choose a label!") :
+									alert("Please, provide the number of classes");
+								}
+								else {
+									// zoomIn here
+								}
+								
 							}}
 							className="zoom__in zoom"
 						>
@@ -153,7 +193,14 @@ export default function App() {
 						{/* Zoom out button (hasn't been implemented yet) */}
 						<button
 							onClick={() => {
-								// zoomInOut(false);
+								if(state.popup || state.labelPrompt){
+									state.popup ? 
+									alert("Please, choose a label!") :
+									alert("Please, provide the number of classes");
+								}
+								else {
+									//zoomOut here
+								}
 							}}
 							className="zoom__out zoom"
 						>
@@ -162,7 +209,16 @@ export default function App() {
 
 						{/* Prev image button */}
 						<button
-							onClick={() => {dispatch({ type: "PREV_FILE" });}}
+							onClick={() => {
+								if(state.popup || state.labelPrompt){
+									state.popup ? 
+									alert("Please, choose a label!") :
+									alert("Please, provide the number of classes");
+								}
+								else {
+									dispatch({ type: "PREV_FILE" });
+								}
+							}}
 							className="prev__image"
 						>
 							Prev
@@ -171,8 +227,14 @@ export default function App() {
 						{/* Next image button */}
 						<button
 							onClick={() => {
-								dispatch({ type: "NEXT_FILE" });
-								dispatch({ type: "SET_POPUP", popup: true })
+								if(state.popup || state.labelPrompt){
+									state.popup ? 
+									alert("Please, choose a label!") :
+									alert("Please, provide the number of classes");
+								}
+								else {
+									dispatch({ type: "NEXT_FILE" });
+								}
 							}}
 							className="next__image"
 						>
@@ -182,9 +244,17 @@ export default function App() {
 						{/* Undo button */}
 						<button
 							className="undo"
-							/* onClick={() => {
-								utils.undo(true);
-							}} */
+							onClick={() => {
+								if(state.popup || state.labelPrompt){
+									state.popup ? 
+									alert("Please, choose a label!") :
+									alert("Please, provide the number of classes");
+								}
+								else {
+									//utils.undo(true);
+								}
+								
+							}}
 						>
 							Undo
 						</button>

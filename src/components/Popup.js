@@ -47,7 +47,7 @@ export default function Popup(props) {
 							const rects = props.state.rectangles;
 							rects[props.state.currentFileIndex].label = label;
 							props.dispatch({ type: "SET_BOX_LABEL", rects: rects });
-							console.log(props.state.rectangles[props.state.currentFileIndex].label);
+							//console.log(props.state.rectangles[props.state.currentFileIndex].label);
 						} else {
 							alert("Please select class and click OK");
 						}
