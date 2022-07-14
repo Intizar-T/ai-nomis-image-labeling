@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/ai-nomis-image-labeling/static/css/main.cedd60b1.css",
-    "main.js": "/ai-nomis-image-labeling/static/js/main.6e0b4d24.js",
+    "main.css": "/ai-nomis-image-labeling/static/css/main.ed9be5f9.css",
+    "main.js": "/ai-nomis-image-labeling/static/js/main.f5f998f5.js",
     "static/media/2560x1440-little-green-leaves-free-website-background-image.jpeg": "/ai-nomis-image-labeling/static/media/2560x1440-little-green-leaves-free-website-background-image.55b7e04a183ef94dad9b.jpeg",
     "index.html": "/ai-nomis-image-labeling/index.html",
-    "main.cedd60b1.css.map": "/ai-nomis-image-labeling/static/css/main.cedd60b1.css.map",
-    "main.6e0b4d24.js.map": "/ai-nomis-image-labeling/static/js/main.6e0b4d24.js.map"
+    "main.ed9be5f9.css.map": "/ai-nomis-image-labeling/static/css/main.ed9be5f9.css.map",
+    "main.f5f998f5.js.map": "/ai-nomis-image-labeling/static/js/main.f5f998f5.js.map"
   },
   "entrypoints": [
-    "static/css/main.cedd60b1.css",
-    "static/js/main.6e0b4d24.js"
+    "static/css/main.ed9be5f9.css",
+    "static/js/main.f5f998f5.js"
   ]
 }
