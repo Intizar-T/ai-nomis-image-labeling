@@ -61,6 +61,8 @@ const Rectangle = ({ shapeProps, isSelected, onSelect, onChange }) => {
               }
               return newBox;
             }}
+            rotateEnabled={false}
+            keepRatio={false}
           />
         )}
       </React.Fragment>
