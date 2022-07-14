@@ -5,6 +5,7 @@ import DownloadImage from "../download/DownloadImage";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
+import Grid from "@mui/material/Grid";
 
 export default function App() {
 	const { state, dispatch } = useContext(Context);
@@ -26,10 +27,10 @@ export default function App() {
 	
 	
 	return (
-		<div className="app__container">
+		<Grid direction="column" className="app__container">
 			<Header />
 			<Main stageRef={stageRef}/>
 			<Footer handleExport={handleExport} />
-		</div>
+		</Grid>
 	);
 }

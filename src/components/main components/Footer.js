@@ -7,150 +7,105 @@ import { Stage, Layer } from 'react-konva';
 import { Html } from 'react-konva-utils'
 import Rectangle from "../helper components/Rectangle"
 import DownloadImage from "../download/DownloadImage";
+import { Grid, Button } from '@mui/material';
+import CustomButton from '../helper components/CustomButton';
+import "../../styles/app/app.css";
 
 const Footer = (props) => {
     const { state, dispatch } = useContext(Context);
     return(
-        <footer className="footer">
-            {state.files.length > 0 ? (
+       state.files.length > 0 ? (
+            <Grid 
+                container 
+                justify="space-between" 
+                spacing={2}
+                style={{
+                    height: 50,
+                    width: "100%",
+                }}
+            >
+                <Grid 
+                    item
+                    xs={6}
+                    direction="row"
+                    justify="flex-start"
+                    alignItems="center"
+                    spacing={2}
+                    style={{
+                        height: "100%",
+                        paddingLeft: 30,
+                    }}
+                >
+                    <CustomButton action={props.handleExport} text="Download" style={{ height: 50, fontSize: 20, }}/>
+                    <CustomButton action={DownloadText} text="Download .txt" pass_state={true} style={{ marginLeft: 10, height: 50, fontSize: 20, }}/>
+                </Grid>
 
-                /* Download button */
-                <div className="download__btns">
-                    <button 
-                        className="download" 
-                        onClick={(e) => {
-                            if(state.popup || state.labelPrompt){
-                                state.popup ? 
-                                alert("Please, choose a label!") :
-                                alert("Please, provide the number of classes");
-                            }
-                            else {
-                                props.handleExport();
-                            }
-                        }}>
-                        Download
-                    </button>
-
-                    {/* Download text button */}
-                    <button 
-                        className="download txt" 
-                        onClick={(e) => {
-                            if(state.popup || state.labelPrompt){
-                                state.popup ? 
-                                alert("Please, choose a label!") :
-                                alert("Please, provide the number of classes");
-                            }
-                            else {
-                                DownloadText(state);
-                            }
-                        }}>
-                        Download .txt
-                    </button>
-                </div>
-            ) : (
-                <form>
-                    <label className="upload" htmlFor="fileInput">Upload Images</label>
-                    <input
-                        id="fileInput"
-                        type="file"
-                        style={{ display: "none" }}
-                        className="upload__button"
-                        accept=".zip,.rar,.7zip"
-                        onChange={(e) => {
-                            ProcessImages(state, dispatch, e.target.files);
-                        }}
+                <Grid 
+                    item
+                    xs={6}
+                    direction="row"
+                    justify="space-between"
+                    alignItems="center"
+                >
+                    <CustomButton 
+                        action={() => {}} 
+                        text="+" 
+                        style={{ marginLeft: 5, height: 30, fontSize: 14, }}
                     />
-                </form>
-            )}
-            <div className="zooms">
-                {/* Zoom in button (hasn't been implemented yet) */}
-                <button
-                    onClick={() => {
-                        if(state.popup || state.labelPrompt){
-                            state.popup ? 
-                            alert("Please, choose a label!") :
-                            alert("Please, provide the number of classes");
-                        }
-                        else {
-                            // zoomIn here
-                        }
-                        
-                    }}
-                    className="zoom__in zoom"
-                >
-                    +
-                </button>
-
-                {/* Zoom out button (hasn't been implemented yet) */}
-                <button
-                    onClick={() => {
-                        if(state.popup || state.labelPrompt){
-                            state.popup ? 
-                            alert("Please, choose a label!") :
-                            alert("Please, provide the number of classes");
-                        }
-                        else {
-                            //zoomOut here
-                        }
-                    }}
-                    className="zoom__out zoom"
-                >
-                    -
-                </button>
-
-                {/* Prev image button */}
-                <button
-                    onClick={() => {
-                        if(state.popup || state.labelPrompt){
-                            state.popup ? 
-                            alert("Please, choose a label!") :
-                            alert("Please, provide the number of classes");
-                        }
-                        else {
-                            dispatch({ type: "PREV_FILE" });
-                        }
-                    }}
-                    className="prev__image"
-                >
-                    Prev
-                </button>
-
-                {/* Next image button */}
-                <button
-                    onClick={() => {
-                        if(state.popup || state.labelPrompt){
-                            state.popup ? 
-                            alert("Please, choose a label!") :
-                            alert("Please, provide the number of classes");
-                        }
-                        else {
-                            dispatch({ type: "NEXT_FILE" });
-                        }
-                    }}
-                    className="next__image"
-                >
-                    Next
-                </button>
-
-                {/* Undo button */}
-                <button
-                    className="undo"
-                    onClick={() => {
-                        if(state.popup || state.labelPrompt){
-                            state.popup ? 
-                            alert("Please, choose a label!") :
-                            alert("Please, provide the number of classes");
-                        }
-                        else {
-                            //utils.undo(true);
-                        }
-                        
+                    <CustomButton 
+                        action={() => {}} 
+                        text="PREV" 
+                        pass_dispatch={true} 
+                        dispatch_info={{type: "PREV_FILE"}} 
+                        style={{ marginLeft: 5, height: 40, fontSize: 18, }}
+                    />
+                     <CustomButton 
+                        action={() => {}} 
+                        text="UNDO" 
+                        style={{ marginLeft: 5, height: 50, fontSize: 20, }}
+                    />
+                    <CustomButton 
+                        action={() => {}} 
+                        text="NEXT" 
+                        pass_dispatch={true} 
+                        dispatch_info={{type: "NEXT_FILE"}} 
+                        style={{ marginLeft: 5, height: 40, fontSize: 18, }}
+                    />
+                    <CustomButton 
+                        action={() => {}} 
+                        text="-" 
+                        style={{ marginLeft: 5, height: 30, fontSize: 14, }}
+                    />
+                </Grid>
+            </Grid>
+            ) : (
+                <Grid 
+                    item 
+                    xs={12} 
+                    direction="row" 
+                    justifyContent="center"
+                    alignItems="center"
+                    style={{
+                        display: "grid",
                     }}
                 >
-                    Undo
-                </button>
-            </div>
-        </footer>
+                    <Button 
+                        variant='contained' 
+                        component="label"
+                        style={{ height: 50, fontSize: 20, margin: "auto", }}
+                    >
+                        Upload Images
+                        <input
+                            hidden
+                            onChange={(e) => {
+                                ProcessImages(state, dispatch, e.target.files);
+                            }}
+                            accept=".zip,.rar,.7zip"
+                            type="file"
+                        />
+                    </Button>
+                </Grid>
+            )
     );
 }
 
