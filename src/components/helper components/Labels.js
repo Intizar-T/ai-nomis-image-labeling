@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/labels/labels.css";
+import "../../styles/labels/labels.css";
 
 export default function Labels(props) {
 	const [value, setValue] = useState(0);

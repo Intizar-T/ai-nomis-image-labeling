@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import "../styles/popup/popup.css";
+import "../../styles/popup/popup.css";
 
 export default function Popup(props) {
 	const [label, setLabel] = useState(0);
