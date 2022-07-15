@@ -1,0 +1,9 @@
+    src
+     |--- assets
+     |--- styles
+     |--- components
+                |--- layout
+     |--- context
+     |--- modules
+                |--- download
+                |--- functions

@@ -1,0 +1,11 @@
+IMMEDIATE:
+ - Integrate my code with Diyor's -> DONE!
+ - Make the generated box resizable -> DONE!
+ - Implement disallowing generating more than one rectangle per canvas -> DONE!
+ - Add buttons for downloading all images and labels
+ - Adjust canvas size to the image (download just the image and label)
+ - Add info about each image
+ 
+ MODERATE:
+ - Box is not selected from the first click (two clicks is necessary) -> DONE!
+ - Restructure the code according to the "App Structure" file
