@@ -13,6 +13,26 @@ import "../../styles/app/app.css";
 
 const Footer = (props) => {
     const { state, dispatch } = useContext(Context);
+
+    const handleUndo = () => {
+        const rects = state.rectangles;
+        const curr_index = state.currentFileIndex;
+        const hist = rects[curr_index].hist;
+        if(hist.length === 0) {
+            return;
+        }
+        const prev_box_coord = hist.pop();
+        
+        // update the rectangle state after undo
+        rects[curr_index].hist = hist;
+        rects[curr_index].x = prev_box_coord.x;
+        rects[curr_index].y = prev_box_coord.y;
+        rects[curr_index].width = prev_box_coord.width;
+        rects[curr_index].height = prev_box_coord.height;
+
+        dispatch({ type: "UPDATE_RECTS", rects: rects });
+    }
+
     return(
        state.files.length > 0 ? (
             <Grid 
@@ -36,8 +56,17 @@ const Footer = (props) => {
                         paddingLeft: 30,
                     }}
                 >
-                    <CustomButton action={props.handleExport} text="Download" style={{ height: 50, fontSize: 20, }}/>
-                    <CustomButton action={DownloadText} text="Download .txt" pass_state={true} style={{ marginLeft: 10, height: 50, fontSize: 20, }}/>
+                    <CustomButton 
+                        action={props.handleExport} 
+                        text="Download" 
+                        style={{ height: 50, fontSize: 20, }}
+                    />
+                    <CustomButton 
+                        action={DownloadText} 
+                        text="Download .txt" 
+                        pass_state={true} 
+                        style={{ marginLeft: 10, height: 50, fontSize: 20, }}
+                    />
                 </Grid>
 
                 <Grid 
@@ -60,7 +89,7 @@ const Footer = (props) => {
                         style={{ marginLeft: 5, height: 40, fontSize: 18, }}
                     />
                      <CustomButton 
-                        action={() => {}} 
+                        action={() => {handleUndo()}} 
                         text="UNDO" 
                         style={{ marginLeft: 5, height: 50, fontSize: 20, }}
                     />

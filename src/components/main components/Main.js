@@ -21,6 +21,20 @@ const Main = (props) => {
 		}
 	};
 
+    const updateHistory = () => {
+        const curr_index = state.currentFileIndex;
+        const rects = state.rectangles;
+        const new_hist = {
+            x: rects[curr_index].x,
+            y: rects[curr_index].y,
+            width: rects[curr_index].width,
+            height: rects[curr_index].height,
+        }
+        rects[curr_index].hist.push(new_hist);
+
+        dispatch({ type: "UPDATE_RECTS", rects: rects });
+    }
+
     return(
         <main id="main">
             {/* Guide message: */}
@@ -56,9 +70,9 @@ const Main = (props) => {
                                     selectShape(state.rectangles[state.currentFileIndex].id);
                                 }}
                                 onChange={(newAttrs) => {
+                                    updateHistory();
                                     const rects = state.rectangles.slice();
                                     rects[state.rectangles[state.currentFileIndex].id] = newAttrs;
-                                    //setRectangles(rects);
                                     dispatch({ type: "UPDATE_RECTS", rects });
                                 }}
                             />

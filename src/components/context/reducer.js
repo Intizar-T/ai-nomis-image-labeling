@@ -147,8 +147,6 @@ const colors = shuffle([
 ]);
 
 const Reducer = (state, action) => {
-	//console.log("-----from Reducer---------")
-	//console.log(state);
 	switch (action.type) {
 		case "SET_BOX_LABEL":
 			return {
@@ -156,7 +154,6 @@ const Reducer = (state, action) => {
 				rectangles: action.rects,
 			}
 		case "SET_LABELPROMPT":
-			//console.log("action.label = " + action.label);
 			return {
 				...state,
 				labelPrompt: action.label,
@@ -177,6 +174,7 @@ const Reducer = (state, action) => {
 			};
 		case "INIT_RECTS":
 			const rects = [];
+			const hist = [];
 			for(let i = 0; i < action.length; i++) {
 				rects.push({
 					x: 10,
@@ -187,6 +185,14 @@ const Reducer = (state, action) => {
 					label: "not labeled",
 					stroke: 'black',
 					strokeWidth: 4,
+					hist: [
+						{
+							x: 10,
+							y: 10, 
+							width: 100,
+							height: 100,
+						}
+					]
 				})
 			}
 			return {
@@ -198,6 +204,11 @@ const Reducer = (state, action) => {
 				...state,
 				rectangles: action.rects,
 			};
+		/* case "UPDATE_RECT":	//after changing the history / pressing the UNDO button
+			return {
+				...state,
+				rectangles
+			} */
 		case "SET_MOUSE":
 			return {
 				...state,
@@ -205,7 +216,6 @@ const Reducer = (state, action) => {
 				mouseY: action.mouseY,
 			};
 		case "SET_POPUP":
-			//console.log("action.popup = " + action.popup);
 			return {
 				...state,
 				popup: action.popup,
