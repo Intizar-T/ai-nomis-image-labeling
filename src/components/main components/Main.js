@@ -61,7 +61,7 @@ const Main = (props) => {
                     }}
                 >
                     <Layer id="layer">
-                        <RenderImage state={state}/>
+                        <RenderImage URL={state.files[state.currentFileIndex][1]}/>
                             <Rectangle
                                 key={state.rectangles[state.currentFileIndex].id}
                                 shapeProps={state.rectangles[state.currentFileIndex]}
