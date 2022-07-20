@@ -16,6 +16,8 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   http://jedwatson.github.io/classnames
 */
 
+/*! @source http://purl.eligrey.com/github/FileSaver.js/blob/master/FileSaver.js */
+
 /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
 
 /**
